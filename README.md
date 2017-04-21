@@ -61,3 +61,36 @@ merely an interface for scene inspection and does not support reconstuction.
 Most of MVE is licensed under the BSD 3-Clause license. Some parts are
 licensed using the GPL 3 license. See the source file headers or the
 LICENSE.txt file for more details.
+
+#Building on Windows
+
+Building MVE on Windows is possible, but unsupported. There are a few issues when compiling with Visual Studio which have been patched in the "cmake" branch of Andre Schulz' fork of MVE (https://github.com/andre-schulz/mve.git). A list of patched issues follows:
+
+Replace GNU make build system with CMake
+Downgraded OpenMP 3.0+ code back to 2.0 because Visual Studio only supports OpenMP 2.0
+Export MainWindowTab symbol for UMVE plugins
+Requirements:
+
+64-bit Windows
+Visual Studio 2015 (64-bit) or newer
+CMake 3.1 or newer
+Build instructions:
+
+Pull from https://github.com/andre-schulz/mve.git
+Switch to the "cmake" branch (respectively "remotes/origin/cmake")
+First, we will build the required 3rd party libraries:
+
+Run cmake (configure + generate) in the "3rdparty" folder
+Make sure that the build folder is the same as the source code folder
+Open "3rdparty.sln"
+Set the solution configuration to "Release"
+Build the solution
+Second, we will build MVE itself:
+
+Run cmake (configure + generate) in "mve" folder
+Open "MVE.sln"
+Set your desired solution configuration (you'll most likely want "Release")
+Build the solution
+Build the CMake predefined target "PACKAGE"
+This will create a .ZIP archive in the build folder named "MVE-0.1.1-win64.zip" which contains all binaries and their required libraries.
+
